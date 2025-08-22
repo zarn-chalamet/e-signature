@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/v1/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -24,7 +24,7 @@ public class AuthController {
         return ResponseEntity.ok(createdUser);
     }
 
-    @PostMapping("/public/login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginRequestDto) {
         return ResponseEntity.ok(authService.authenticateUser(loginRequestDto));
     }
