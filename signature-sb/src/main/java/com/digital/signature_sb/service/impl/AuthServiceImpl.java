@@ -23,45 +23,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-
-    @Override
-    public UserDto createNewUser(UserDto userDto) {
-
-        //check the user exists or not
-        boolean userExists = userRepository.existsByEmail(userDto.getEmail());
-        if(userExists){
-            throw new UserAlreadyExistException("User already registered with email: "+userDto.getEmail());
-        }
-
-        //save new user
-        UserDocument newUser = UserDocument.builder()
-                .role(Role.USER_ROLE)
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .isRestricted(userDto.isRestricted())
-                .imageUrl(userDto.getImageUrl())
-                .build();
-        newUser = userRepository.save(newUser);
-
-        //return dto
-        return UserDto.builder()
-                .id(newUser.getId())
-                .firstName(newUser.getFirstName())
-                .lastName(newUser.getLastName())
-                .email(newUser.getEmail())
-                .password(newUser.getPassword())
-                .role(newUser.getRole())
-                .createdAt(newUser.getCreatedAt())
-                .imageUrl(newUser.getImageUrl())
-                .isRestricted(newUser.isRestricted())
-                .build();
-    }
 
     @Override
     public JwtAuthResponse authenticateUser(LoginRequestDto loginRequestDto) {

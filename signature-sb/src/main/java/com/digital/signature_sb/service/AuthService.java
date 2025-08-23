@@ -5,7 +5,7 @@ import com.digital.signature_sb.dto.UserDto.UserDto;
 import com.digital.signature_sb.security.jwt.JwtAuthResponse;
 
 public interface AuthService{
-    UserDto createNewUser(UserDto userDto);
+
 
     JwtAuthResponse authenticateUser(LoginRequestDto loginRequestDto);
 }

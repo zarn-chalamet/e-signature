@@ -17,13 +17,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    //create user (ONLY AMIN can)
-    @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
-        UserDto createdUser = authService.createNewUser(userDto);
-        return ResponseEntity.ok(createdUser);
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginRequestDto) {
         return ResponseEntity.ok(authService.authenticateUser(loginRequestDto));

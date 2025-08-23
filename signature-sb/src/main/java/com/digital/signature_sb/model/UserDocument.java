@@ -33,6 +33,10 @@ public class UserDocument {
 
     private List<RecentTemplate> recentTemplates;
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class RecentTemplate {
         private String templateId;
         private LocalDateTime lastOpened;
