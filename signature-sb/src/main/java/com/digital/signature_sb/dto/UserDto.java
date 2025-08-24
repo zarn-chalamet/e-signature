@@ -1,4 +1,4 @@
-package com.digital.signature_sb.dto.UserDto;
+package com.digital.signature_sb.dto;
 
 import com.digital.signature_sb.model.Role;
 import com.digital.signature_sb.model.UserDocument;

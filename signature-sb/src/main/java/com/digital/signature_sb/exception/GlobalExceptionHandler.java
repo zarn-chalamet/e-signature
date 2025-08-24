@@ -22,4 +22,9 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleTemplateNotAuthorizedException(TemplateNotAuthorizedException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NON_AUTHORITATIVE_INFORMATION, e.getMessage());
     }
+
+    @ExceptionHandler(RequestSignatureDocumentNotFoundException.class)
+    public ProblemDetail handleRequestSignatureDocumentNotFoundException(RequestSignatureDocumentNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
 }

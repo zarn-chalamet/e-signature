@@ -1,7 +1,6 @@
 package com.digital.signature_sb.controller;
 
 import com.digital.signature_sb.dto.LoginRequestDto;
-import com.digital.signature_sb.dto.UserDto.UserDto;
 import com.digital.signature_sb.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

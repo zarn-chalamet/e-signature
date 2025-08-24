@@ -1,4 +1,4 @@
-package com.digital.signature_sb.service;
+package com.digital.signature_sb.service.impl;
 
 import com.digital.signature_sb.dto.TemplateDto;
 import com.digital.signature_sb.exception.TemplateNotAuthorizedException;
@@ -7,6 +7,7 @@ import com.digital.signature_sb.model.TemplateDocument;
 import com.digital.signature_sb.model.UserDocument;
 import com.digital.signature_sb.repository.TemplateRepository;
 import com.digital.signature_sb.repository.UserRepository;
+import com.digital.signature_sb.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

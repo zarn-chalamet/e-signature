@@ -1,13 +1,12 @@
 package com.digital.signature_sb.service.impl;
 
-import com.digital.signature_sb.dto.UserDto.UserDto;
+import com.digital.signature_sb.dto.UserDto;
 import com.digital.signature_sb.exception.UserAlreadyExistException;
 import com.digital.signature_sb.model.Role;
 import com.digital.signature_sb.model.UserDocument;
 import com.digital.signature_sb.repository.UserRepository;
 import com.digital.signature_sb.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

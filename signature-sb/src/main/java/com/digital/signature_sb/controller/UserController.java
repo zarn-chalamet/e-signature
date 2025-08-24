@@ -1,11 +1,9 @@
 package com.digital.signature_sb.controller;
 
-import com.digital.signature_sb.dto.UserDto.UserDto;
+import com.digital.signature_sb.dto.UserDto;
 import com.digital.signature_sb.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;

@@ -1,7 +1,6 @@
 package com.digital.signature_sb.service;
 
-import com.digital.signature_sb.dto.UserDto.UserDto;
-import org.springframework.http.ResponseEntity;
+import com.digital.signature_sb.dto.UserDto;
 
 import java.util.List;
 

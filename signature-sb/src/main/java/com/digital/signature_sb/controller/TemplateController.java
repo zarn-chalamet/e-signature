@@ -105,7 +105,15 @@ public class TemplateController {
         Path path = Paths.get(downloadableFile.getFileUrl());
         Resource resource = new UrlResource(path.toUri());
 
-        String safeFileName = downloadableFile.getTitle().trim().replace(" ", "-");
+        // Extract file extension from the original file
+        String originalFileName = path.getFileName().toString(); // e.g. "document.pdf"
+        String extension = "";
+        int dotIndex = originalFileName.lastIndexOf(".");
+        if (dotIndex != -1) {
+            extension = originalFileName.substring(dotIndex); // e.g. ".pdf"
+        }
+
+        String safeFileName = downloadableFile.getTitle().trim().replace(" ", "-") + extension;
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
