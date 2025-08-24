@@ -52,6 +52,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers("/v1/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui.html",      // main Swagger page
+                                "/swagger-ui/**",        // Swagger UI assets
+                                "/v3/api-docs/**"        // OpenAPI docs
+                        ).permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
