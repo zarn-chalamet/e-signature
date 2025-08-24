@@ -122,8 +122,10 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .role(user.getRole())
                 .createdAt(user.getCreatedAt())
+                .password(user.getPassword())
                 .imageUrl(user.getImageUrl())
                 .isRestricted(user.isRestricted())
+                .recentTemplates(user.getRecentTemplates())
                 .build();
     }
 
