@@ -27,4 +27,19 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleRequestSignatureDocumentNotFoundException(RequestSignatureDocumentNotFoundException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
+
+    @ExceptionHandler(RequestSignatureDocumentNotAuthorizedException.class)
+    public ProblemDetail handleRequestSignatureDocumentNotAuthorizedException(RequestSignatureDocumentNotAuthorizedException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NON_AUTHORITATIVE_INFORMATION, e.getMessage());
+    }
+
+    @ExceptionHandler(UserAlreadySignedException.class)
+    public ProblemDetail handleUserAlreadySignedException(UserAlreadySignedException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(NoPdfVersionsFoundException.class)
+    public ProblemDetail handleNoPdfVersionsFoundException(NoPdfVersionsFoundException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
 }

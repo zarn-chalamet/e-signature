@@ -3,6 +3,7 @@ package com.digital.signature_sb.service.impl;
 import com.digital.signature_sb.dto.RequestSignatureDtoForRequest;
 import com.digital.signature_sb.dto.RequestSignatureDtoResponse;
 import com.digital.signature_sb.exception.RequestSignatureDocumentNotFoundException;
+import com.digital.signature_sb.mapper.RequestSignatureMapper;
 import com.digital.signature_sb.model.RequestSignatureDocument;
 import com.digital.signature_sb.model.UserDocument;
 import com.digital.signature_sb.repository.RequestSignatureRepository;
@@ -29,7 +30,7 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: "+email));
 
         // map recipients from DTO → Document
-        List<RequestSignatureDocument.Recipient> recipientDocs = recipientsDtoToDocument(request);
+        List<RequestSignatureDocument.Recipient> recipientDocs = RequestSignatureMapper.recipientsDtoToDocument(request);
 
         RequestSignatureDocument document = RequestSignatureDocument.builder()
                 .senderId(user.getId())
@@ -43,7 +44,7 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
         RequestSignatureDocument savedDocument = requestSignatureRepository.save(document);
 
 
-        return mapToDto(savedDocument);
+        return RequestSignatureMapper.mapToDto(savedDocument);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
 
         List<RequestSignatureDocument> documentList = requestSignatureRepository.findAllBySenderId(user.getId());
 
-        return documentList.stream().map(this::mapToDto).toList();
+        return documentList.stream().map(RequestSignatureMapper::mapToDto).toList();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
                 .orElseThrow(() -> new RequestSignatureDocumentNotFoundException("Request signature not found with id: "+ requestId));
 
 
-        return mapToDto(document);
+        return RequestSignatureMapper.mapToDto(document);
     }
 
     @Override
@@ -85,56 +86,56 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
 
 
         return requestSignatureDocuments.stream()
-                .map(this::mapToDto)
+                .map(RequestSignatureMapper::mapToDto)
                 .toList();
     }
 
-    private RequestSignatureDtoResponse mapToDto(RequestSignatureDocument document) {
-        return RequestSignatureDtoResponse.builder()
-                .id(document.getId())
-                .senderId(document.getSenderId())
-                .title(document.getTitle())
-                .status(document.getStatus())
-                .emailSubject(document.getEmailSubject())
-                .emailMessage(document.getEmailMessage())
-                .templateId(document.getTemplateId())
-                .recipients(recipientsDocumentToDto(document.getRecipients()))
-                .createdAt(document.getCreatedAt())
-                .updatedAt(document.getUpdatedAt())
-                .build();
-    }
-
-    private List<RequestSignatureDocument.Recipient> recipientsDtoToDocument(RequestSignatureDtoForRequest request) {
-        return request.getRecipients().stream()
-                .map(r -> RequestSignatureDocument.Recipient.builder()
-                        .userId(r.getUserId())
-                        .signed(r.isSigned())
-                        .signaturePositions(r.getSignaturePositions().stream()
-                                .map(pos -> RequestSignatureDocument.SignaturePosition.builder()
-                                        .page(pos.getPage())
-                                        .x(pos.getX())
-                                        .y(pos.getY())
-                                        .build()
-                                ).toList()
-                        )
-                        .build()
-                ).toList();
-    }
-
-    private List<RequestSignatureDtoResponse.RecipientDto> recipientsDocumentToDto(List<RequestSignatureDocument.Recipient> recipients) {
-        return recipients.stream()
-                .map(r -> RequestSignatureDtoResponse.RecipientDto.builder()
-                        .userId(r.getUserId())
-                        .signed(r.isSigned())
-                        .signaturePositions(r.getSignaturePositions().stream()
-                                .map(pos -> RequestSignatureDtoResponse.SignaturePositionDto.builder()
-                                        .page(pos.getPage())
-                                        .x(pos.getX())
-                                        .y(pos.getY())
-                                        .build()
-                                ).toList()
-                        )
-                        .build()
-                ).toList();
-    }
+//    private RequestSignatureDtoResponse mapToDto(RequestSignatureDocument document) {
+//        return RequestSignatureDtoResponse.builder()
+//                .id(document.getId())
+//                .senderId(document.getSenderId())
+//                .title(document.getTitle())
+//                .status(document.getStatus())
+//                .emailSubject(document.getEmailSubject())
+//                .emailMessage(document.getEmailMessage())
+//                .templateId(document.getTemplateId())
+//                .recipients(recipientsDocumentToDto(document.getRecipients()))
+//                .createdAt(document.getCreatedAt())
+//                .updatedAt(document.getUpdatedAt())
+//                .build();
+//    }
+//
+//    private List<RequestSignatureDocument.Recipient> recipientsDtoToDocument(RequestSignatureDtoForRequest request) {
+//        return request.getRecipients().stream()
+//                .map(r -> RequestSignatureDocument.Recipient.builder()
+//                        .userId(r.getUserId())
+//                        .signed(r.isSigned())
+//                        .signaturePositions(r.getSignaturePositions().stream()
+//                                .map(pos -> RequestSignatureDocument.SignaturePosition.builder()
+//                                        .page(pos.getPage())
+//                                        .x(pos.getX())
+//                                        .y(pos.getY())
+//                                        .build()
+//                                ).toList()
+//                        )
+//                        .build()
+//                ).toList();
+//    }
+//
+//    private List<RequestSignatureDtoResponse.RecipientDto> recipientsDocumentToDto(List<RequestSignatureDocument.Recipient> recipients) {
+//        return recipients.stream()
+//                .map(r -> RequestSignatureDtoResponse.RecipientDto.builder()
+//                        .userId(r.getUserId())
+//                        .signed(r.isSigned())
+//                        .signaturePositions(r.getSignaturePositions().stream()
+//                                .map(pos -> RequestSignatureDtoResponse.SignaturePositionDto.builder()
+//                                        .page(pos.getPage())
+//                                        .x(pos.getX())
+//                                        .y(pos.getY())
+//                                        .build()
+//                                ).toList()
+//                        )
+//                        .build()
+//                ).toList();
+//    }
 }
