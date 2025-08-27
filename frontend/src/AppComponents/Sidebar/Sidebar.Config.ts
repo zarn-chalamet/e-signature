@@ -23,5 +23,5 @@ export const mainNav = [
 export const bottomNav = [
   { title: "Settings", href: "/settings", icon: Settings },
   { title: "Help & Support", href: "/help", icon: HelpCircle },
-  { title: "Logout", href: "/logout", icon: LogOut, destructive: true },
+  // { title: "Logout", href: "/logout", icon: LogOut, destructive: true },
 ]

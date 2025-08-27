@@ -2,9 +2,22 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/es/persistStore";
+import { Toaster } from "sonner";
+import Store from "./Store/Store.ts";
+import Loading from './Layout/Loading.tsx';
+
+const persistor = persistStore(Store);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <Provider store={Store}>
+      <PersistGate  persistor={persistor} loading={<Loading/>} >
+        <App />
+      </PersistGate>
+      <Toaster position="top-center" richColors closeButton />
+    </Provider>
   </StrictMode>,
 )

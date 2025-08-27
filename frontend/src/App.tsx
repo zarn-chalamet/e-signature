@@ -18,10 +18,16 @@ import Testing from "./Pages/testing";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />, // <Outlet /> renders here
+    element: (
+        <MainLayout />
+    ), // <Outlet /> renders here
     children: [
       {
-        element: <HomeLayout />,
+        element: (
+          <ProtectRoute>
+            <HomeLayout />
+          </ProtectRoute>
+        ),
         children: [
           { index: true, element: <Home /> },
           { path: "profile", element: <Profile /> },

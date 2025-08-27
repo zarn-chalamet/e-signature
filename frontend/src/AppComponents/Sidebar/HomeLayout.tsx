@@ -23,7 +23,8 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { mainNav, bottomNav } from "./Sidebar.Config";
-import { Signature } from "lucide-react";
+import { LogOut, Signature } from "lucide-react";
+import { logout } from "@/apiEndpoints/Auth";
 
 // Custom header component that responds to sidebar state
 function CollapsibleHeader() {
@@ -32,10 +33,10 @@ function CollapsibleHeader() {
   return (
     <SidebarHeader>
       <div className="flex items-center gap-2 py-4">
-          <Signature />
-          {state === "expanded" && (
-            <span className="font-bold text-lg">E-Signature</span>
-          )}
+        <Signature />
+        {state === "expanded" && (
+          <span className="font-bold text-lg">E-Signature</span>
+        )}
         {/* <SidebarTrigger className="mr-2" /> */}
       </div>
     </SidebarHeader>
@@ -92,9 +93,9 @@ export function HomeLayout() {
                           <SidebarMenuButton asChild>
                             <Link
                               to={item.href}
-                              className={cn(
-                                item.destructive && "text-destructive"
-                              )}
+                              // className={cn(
+                              //   item.destructive && "text-destructive"
+                              // )}
                             >
                               <item.icon className="h-5 w-5" />
                               <span>{item.title}</span>
@@ -108,6 +109,22 @@ export function HomeLayout() {
                     </TooltipProvider>
                   </SidebarMenuItem>
                 ))}
+                <SidebarMenuItem>
+                  <TooltipProvider disableHoverableContent>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <SidebarMenuButton
+                          onClick={() => logout()}
+                          className="text-destructive cursor-pointer"
+                        >
+                          <LogOut className="h-5 w-5" />
+                          <span>Logout</span>
+                        </SidebarMenuButton>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">Logout</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarFooter>
