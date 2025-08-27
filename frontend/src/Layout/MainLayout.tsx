@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <>
       {/* <Navbar /> */}
-      <div>
+      <div className="bg-gray-200">
         <Outlet />
       </div>
     </>

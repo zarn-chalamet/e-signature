@@ -1,7 +1,9 @@
 package com.digital.signature_sb.controller;
 
 import com.digital.signature_sb.dto.LoginRequestDto;
+import com.digital.signature_sb.security.jwt.JwtAuthResponse;
 import com.digital.signature_sb.service.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginRequestDto) {
-        return ResponseEntity.ok(authService.authenticateUser(loginRequestDto));
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+//        return ResponseEntity.ok(authService.authenticateUser(loginRequestDto));
+        JwtAuthResponse jwtResponse = authService.authenticateUser(loginRequestDto);
+
+        // Set JWT in response header
+        response.setHeader("Authorization", "Bearer " + jwtResponse.getToken());
+        return ResponseEntity.ok(jwtResponse);
     }
 }

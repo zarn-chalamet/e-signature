@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useParams, useLocation } from "react-router-dom";
 import {
   SidebarProvider,
   Sidebar,
@@ -13,6 +13,7 @@ import {
   SidebarTrigger,
   SidebarFooter,
   SidebarHeader,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   TooltipProvider,
@@ -22,24 +23,37 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { mainNav, bottomNav } from "./Sidebar.Config";
-// const { state } = useSidebar();
+import { Signature } from "lucide-react";
+
+// Custom header component that responds to sidebar state
+function CollapsibleHeader() {
+  const { state } = useSidebar();
+
+  return (
+    <SidebarHeader>
+      <div className="flex items-center gap-2 py-4">
+          <Signature />
+          {state === "expanded" && (
+            <span className="font-bold text-lg">E-Signature</span>
+          )}
+        {/* <SidebarTrigger className="mr-2" /> */}
+      </div>
+    </SidebarHeader>
+  );
+}
 
 export function HomeLayout() {
+  const location = useLocation();
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen bg-background flex">
+      <div className="min-h-screen flex w-full">
         {/* Sidebar */}
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" variant="floating">
+          <CollapsibleHeader />
           <SidebarContent>
             {/* Main Nav */}
             <SidebarGroup>
-              <SidebarHeader>
-                <div>
-                  <img src="" alt="" />
-                  <span className="font-bold text-lg py-4">E-Signature</span>
-                </div>
-              </SidebarHeader>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {mainNav.map((item) => (
@@ -100,11 +114,26 @@ export function HomeLayout() {
         </Sidebar>
 
         {/* Main Content */}
-        <main className="flex-1">
-          <div className="p-4 flex items-center">
-            <SidebarTrigger className="mr-2" />
+        <main className="flex-1 w-full">
+          <div className="pt-6 pb-2 flex items-center gap-4">
+            <SidebarTrigger className="py-4" />
+            <p>|</p>
+            {location.pathname == "/" ? (
+              <>
+                <p className="text-lg font-bold">DASHBOARD</p>
+              </>
+            ) : (
+              <>
+                <p className="text-lg font-bold">
+                  {location.pathname
+                    .split("/")
+                    .filter(Boolean)
+                    .map((seg) => seg.toUpperCase())}
+                </p>
+              </>
+            )}
           </div>
-          <div className="p-6">
+          <div className="p-6 w-full">
             <Outlet />
           </div>
         </main>
