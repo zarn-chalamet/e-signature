@@ -11,6 +11,11 @@ interface adminLoginData {
   password: string;
 }
 
+interface templateInfo {
+  templateId: string;
+  lastOpened: string;
+}
+
 export interface userInfo {
   userId: string;
   role: string;
@@ -18,10 +23,10 @@ export interface userInfo {
   firstName: string;
   lastName: string;
   image: string;
-  recentTemplates: string[];
+  recentTemplates: templateInfo[];
 }
 
-interface error {
+export interface error {
   message: string;
 }
 

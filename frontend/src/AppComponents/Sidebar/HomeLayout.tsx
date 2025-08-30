@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { mainNav, bottomNav } from "./Sidebar.Config";
 import { LogOut, Signature } from "lucide-react";
 import { logout } from "@/apiEndpoints/Auth";
+import { useSelector } from "react-redux";
 
 // Custom header component that responds to sidebar state
 function CollapsibleHeader() {
@@ -45,7 +46,7 @@ function CollapsibleHeader() {
 
 export function HomeLayout() {
   const location = useLocation();
-
+  const user = useSelector((state:any)=> state.user);
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
@@ -132,9 +133,9 @@ export function HomeLayout() {
 
         {/* Main Content */}
         <main className="flex-1 w-full">
-          <div className="pt-6 pb-2 flex items-center gap-4">
+          <div className="pt-6 pb-2 flex items-center justify-between gap-4">
             <SidebarTrigger className="py-4" />
-            <p>|</p>
+            {/* <p>|</p>
             {location.pathname == "/" ? (
               <>
                 <p className="text-lg font-bold">DASHBOARD</p>
@@ -148,9 +149,18 @@ export function HomeLayout() {
                     .map((seg) => seg.toUpperCase())}
                 </p>
               </>
-            )}
+            )} */}
+            <div className="relative mr-10">
+              <img
+                src={user.profilePicture || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
+                alt="User profile"
+                className="h-9 w-9 rounded-full object-cover border-2 border-blue-500/30 hover:border-purple-500/60 transition-all"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-900"></div>
+            </div>
           </div>
-          <div className="p-6 w-full">
+          <div className="px-6 w-full">
             <Outlet />
           </div>
         </main>

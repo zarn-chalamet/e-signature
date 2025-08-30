@@ -6,7 +6,7 @@ import { type TypedUseSelectorHook, useSelector, useDispatch } from "react-redux
 import UserReducer from "./slices/UserSlice";
 
 const persistConfig = {
-  key: "root",
+  key: "e-signature",
   version: 1,
   storage: storage,
   whitelist: ["user"], 
