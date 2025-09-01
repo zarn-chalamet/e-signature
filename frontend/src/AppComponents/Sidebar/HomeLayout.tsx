@@ -47,6 +47,7 @@ function CollapsibleHeader() {
 export function HomeLayout() {
   const location = useLocation();
   const user = useSelector((state:any)=> state.user);
+  console.log("hello");
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
@@ -135,21 +136,6 @@ export function HomeLayout() {
         <main className="flex-1 w-full">
           <div className="pt-6 pb-2 flex items-center justify-between gap-4">
             <SidebarTrigger className="py-4" />
-            {/* <p>|</p>
-            {location.pathname == "/" ? (
-              <>
-                <p className="text-lg font-bold">DASHBOARD</p>
-              </>
-            ) : (
-              <>
-                <p className="text-lg font-bold">
-                  {location.pathname
-                    .split("/")
-                    .filter(Boolean)
-                    .map((seg) => seg.toUpperCase())}
-                </p>
-              </>
-            )} */}
             <div className="relative mr-10">
               <img
                 src={user.profilePicture || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
@@ -170,3 +156,21 @@ export function HomeLayout() {
 }
 
 export default HomeLayout;
+
+
+
+            {/* <p>|</p>
+            {location.pathname == "/" ? (
+              <>
+                <p className="text-lg font-bold">DASHBOARD</p>
+              </>
+            ) : (
+              <>
+                <p className="text-lg font-bold">
+                  {location.pathname
+                    .split("/")
+                    .filter(Boolean)
+                    .map((seg) => seg.toUpperCase())}
+                </p>
+              </>
+            )} */}
