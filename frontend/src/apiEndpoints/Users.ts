@@ -1,8 +1,21 @@
 import axiosInstance from "@/Axios/axios";
-import type { error, userInfo } from "./Auth";
+import type { error, templateInfo, userInfo } from "./Auth";
+
+export interface allUsersInfo {
+  id: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  imageUrl: string | null;
+  createdAt: string;
+  recentTemplates: templateInfo[] | null;
+  restricted: boolean;
+}
 
 export interface allUsers {
-  allUsers: userInfo[];
+  allUsers: allUsersInfo[];
 }
 
 interface userData {
@@ -41,3 +54,29 @@ export const createUser = async (
     };
   }
 };
+
+export const deleteUser = async (userId: string) => {
+  try {
+    const response = await axiosInstance.delete(
+      `/v1/api/users/delete/${userId}`
+    );
+    return response.data;
+  } catch (error: any) {
+    return {
+      message: error.response.data.message || "Error deleting user",
+    };
+  }
+};
+
+export const toggleRestrict = async (userId: string) => {
+      try {
+    const response = await axiosInstance.delete(
+      `/v1/api/users/${userId}/toggle-restrict`
+    );
+    return response.data;
+  } catch (error: any) {
+    return {
+      message: error.response.data.message || "Error restricting user",
+    };
+  }
+}

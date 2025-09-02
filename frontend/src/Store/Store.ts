@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import { type TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 
 import UserReducer from "./slices/UserSlice";
+import AllUsersReducer from "./slices/AllUsersSlice";
 
 const persistConfig = {
   key: "e-signature",
@@ -14,6 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: UserReducer,
+  allUsers: AllUsersReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -16,7 +16,7 @@ export const mainNav = [
   { title: "Profile", href: "/profile", icon: User },
   { title: "Request", href: "/request", icon: Mail },
   { title: "Template", href: "/template", icon: Calendar },
-  { title: "Report", href: "/report", icon: FileText },
+  // { title: "Report", href: "/report", icon: FileText },
   { title: "History", href: "/history", icon: BarChart3 },
 ]
 

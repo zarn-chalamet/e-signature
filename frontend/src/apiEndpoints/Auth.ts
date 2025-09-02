@@ -11,7 +11,7 @@ interface adminLoginData {
   password: string;
 }
 
-interface templateInfo {
+export interface templateInfo {
   templateId: string;
   lastOpened: string;
 }
