@@ -1,10 +1,14 @@
-import React from 'react';
-
+import UserProfile from "@/AppComponents/Profile/UserProfile";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const userData = useSelector((state: any) => state.user);
   return (
-    <div>Profile</div>
-  )
-}
+    <>
+      <UserProfile userData={userData} />
+    </>
+  );
+};
 
-export default Profile
+export default Profile;

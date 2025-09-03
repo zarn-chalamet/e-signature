@@ -8,7 +8,8 @@ const initialState: userInfo = {
     lastName: "",
     role: "",
     image: "",
-    recentTemplates: []
+    recentTemplates: [],
+    createdAt: "",
 }
 
 const UserSlice = createSlice({
@@ -23,6 +24,7 @@ const UserSlice = createSlice({
       state.email = action.payload.email;
       state.image = action.payload.image;
       state.recentTemplates = action.payload.recentTemplates;
+      state.createdAt = action.payload.createdAt;
     },
   },
 });

@@ -15,17 +15,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const {
-    data: userData,
-    isLoading: usersLoading,
-    error: usersError,
-  } = useQuery<allUsers>({
-    queryKey: ["allUsers"],
-    queryFn: getAllUsers,
-  });
-
-  dispatch(setAllUsers(userData?.allUsers ?? []));
-
-  const {
     data: publicTemplatesData,
     isLoading: templatesLoading,
     error: templatesError,
@@ -39,9 +28,7 @@ const Home = () => {
   if (userRole == "ADMIN_ROLE") {
     return (
       <AdminDashboard
-        allUsers={userData?.allUsers}
         publicTemplates={publicTemplatesData?.publicTemplates}
-        userLoading={usersLoading}
         templateLoading={templatesLoading}
       />
     );

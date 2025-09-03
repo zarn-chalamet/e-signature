@@ -85,7 +85,7 @@ export function TemplateTable({ templates }: TemplateTableProps) {
           <TableHeader>
             <TableRow>
               <TableHead>Title</TableHead>
-              <TableHead>File</TableHead>
+              {/* <TableHead>File</TableHead> */}
               <TableHead>Uploaded At</TableHead>
               <TableHead>Frequency</TableHead>
               <TableHead>Status</TableHead>
@@ -96,7 +96,7 @@ export function TemplateTable({ templates }: TemplateTableProps) {
             {localTemplates.map((template) => (
               <TableRow key={template.id}>
                 <TableCell className="font-medium">{template.title}</TableCell>
-                <TableCell>{getFileNameFromPath(template.fileUrl)}</TableCell>
+                {/* <TableCell>{getFileNameFromPath(template.fileUrl)}</TableCell> */}
                 <TableCell>{formatDate(template.uploadedAt)}</TableCell>
                 <TableCell>
                   {template.frequency !== null ? template.frequency : "N/A"}

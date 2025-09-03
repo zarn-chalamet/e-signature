@@ -24,6 +24,7 @@ export interface userInfo {
   lastName: string;
   image: string;
   recentTemplates: templateInfo[];
+  createdAt: string;
 }
 
 export interface error {
@@ -78,6 +79,7 @@ export const getUserProfile = async (): Promise<userInfo | error> => {
       lastName: response.data.lastName,
       image: response.data.image,
       recentTemplates: response.data.recentTemplates,
+      createdAt: response.data.createdAt
     };
   } catch (error: any) {
     return {

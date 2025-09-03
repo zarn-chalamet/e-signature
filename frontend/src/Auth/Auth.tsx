@@ -65,6 +65,7 @@ const Auth = () => {
           if ("message" in userData) {
             toast.error("Error getting userInfo");
           } else {
+
             dispatch(setUser(userData));
             navigate("/");
           }
@@ -237,7 +238,7 @@ const Auth = () => {
                   value={mode === "login" ? loginData.email : adminLoginData.email}
                   onChange={handleChange}
                   autoComplete="email"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 border border-gray-200 text-gray-800 rounded-lg focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
                   placeholder="your.email@example.com"
                 />
               </motion.div>
@@ -267,7 +268,7 @@ const Auth = () => {
                   onChange={handleChange}
                   required
                   autoComplete="current-password"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg text-gray-800 focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
                   placeholder="••••••••"
                 />
               </motion.div>

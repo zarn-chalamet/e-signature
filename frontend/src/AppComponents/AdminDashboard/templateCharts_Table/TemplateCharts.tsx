@@ -67,7 +67,7 @@ const TemplateCharts: React.FC<TemplateChartsProps> = ({ templates }) => {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Upload Timeline Line Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="bg-card p-4 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold mb-4 text-center">
             Template Upload Timeline
           </h3>
@@ -89,7 +89,7 @@ const TemplateCharts: React.FC<TemplateChartsProps> = ({ templates }) => {
           </ResponsiveContainer>
         </div>
         {/* Public Status Pie Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="bg-card p-4 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold mb-4 text-center">
             Template Visibility
           </h3>

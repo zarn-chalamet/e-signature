@@ -63,7 +63,7 @@ const UserCharts: React.FC<UserChartsProps> = ({ users }) => {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Role Distribution Pie Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="bg-card p-4 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold mb-4 text-center">User Role Distribution</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -88,7 +88,7 @@ const UserCharts: React.FC<UserChartsProps> = ({ users }) => {
         </div>
 
         {/* Registration Timeline Bar Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
+        <div className="bg-card p-4 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold mb-4 text-center">User Registration Timeline</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={timelineData}>

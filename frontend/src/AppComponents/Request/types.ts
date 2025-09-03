@@ -1,3 +1,4 @@
+// types.ts
 export interface SignaturePosition {
   page: number;
   x: number;
@@ -32,5 +33,3 @@ export interface User {
   recentTemplates: Template[] | null;
   restricted: boolean;
 }
-
-export type TemplateTab = 'public' | 'private';

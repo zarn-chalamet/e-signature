@@ -47,6 +47,7 @@ export const createUser = async (
       lastName: response.data.lastName,
       image: response.data.image,
       recentTemplates: response.data.recentTemplates,
+      createdAt: response.data.createdAt
     };
   } catch (error: any) {
     return {

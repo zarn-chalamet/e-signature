@@ -6,25 +6,37 @@ import { UserTable } from "./userCharts_Table/UserTable";
 import TemplateCharts from "./templateCharts_Table/TemplateCharts";
 import { TemplateTable } from "./templateCharts_Table/TemplateTable";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { getAllUsers } from "@/apiEndpoints/Users";
+import type { allUsers } from "@/apiEndpoints/Users";
+import { useDispatch } from "react-redux";
+import { setAllUsers } from "@/Store/slices/AllUsersSlice";
 
 type userMode = "chart" | "table";
 type templateMode = "tempChart" | "tempTable";
 
 interface AdminDashboardProps {
-  allUsers: any;
   publicTemplates: any;
-  userLoading: boolean;
   templateLoading: boolean;
 }
 
 const AdminDashboard = ({
-  allUsers,
   publicTemplates,
-  userLoading,
   templateLoading,
 }: AdminDashboardProps) => {
   const [mode, setMode] = useState<userMode>("chart");
   const [tempmode, setTempMode] = useState<templateMode>("tempChart");
+  const dispatch = useDispatch();
+
+  const {
+    data: userData,
+    isLoading: usersLoading,
+    error: usersError,
+  } = useQuery<allUsers>({
+    queryKey: ["allUsers"],
+    queryFn: getAllUsers,
+  });
+  dispatch(setAllUsers(userData?.allUsers ?? []));
 
   const toggleMode = () => {
     setMode((prev) => (prev === "chart" ? "table" : "chart"));
@@ -37,7 +49,7 @@ const AdminDashboard = ({
     {
       title: "Users",
       path: "/dashboard/allUsers",
-      count: allUsers?.length || 0,
+      count: userData?.allUsers?.length || 0,
       bgColor: "bg-green-200",
       textColor: "text-green-800",
       hoverColor: "hover:bg-green-300",
@@ -52,7 +64,7 @@ const AdminDashboard = ({
     },
   ];
 
-  if (userLoading) {
+  if (usersLoading) {
     return (
       <div className="py-3">
         <h1 className="text-xl font-bold mb-6">Admin Dashboard</h1>
@@ -73,7 +85,9 @@ const AdminDashboard = ({
             className={`w-full h-28 ${item.bgColor} ${item.hoverColor} rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer`}
           >
             <div className="flex justify-between">
-              <h2 className="text-lg font-semibold">{item.title}</h2>
+              <h2 className="text-lg text-gray-600 font-semibold">
+                {item.title}
+              </h2>
               <p className={`text-xl font-bold ${item.textColor}`}>
                 {item.count}
               </p>
@@ -83,7 +97,7 @@ const AdminDashboard = ({
         ))}
         <CreateNewUser
           trigger={
-            <div className="w-full h-28 bg-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer flex flex-col items-center gap-2 text-center justify-center">
+            <div className="w-full h-28 bg-card rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer flex flex-col items-center gap-2 text-center justify-center">
               <span>Create new User</span> <Plus />
             </div>
           }
@@ -107,9 +121,9 @@ const AdminDashboard = ({
         </div>
 
         {mode == "chart" ? (
-          <UserCharts users={allUsers} />
+          <UserCharts users={userData?.allUsers} />
         ) : (
-          <UserTable users={allUsers} />
+          <UserTable users={userData?.allUsers} />
         )}
 
         <div className="flex flex-row items-center justify-between py-6">
@@ -130,14 +144,13 @@ const AdminDashboard = ({
 
 export default AdminDashboard;
 
-
-  //   if (userError) {
-  //     return (
-  //       <div className="py-3">
-  //         <h1 className="text-xl font-bold mb-6">Admin Dashboard</h1>
-  //         <div className="flex justify-center items-center h-40">
-  //           <p className="text-red-500">Error loading user data</p>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
+//   if (userError) {
+//     return (
+//       <div className="py-3">
+//         <h1 className="text-xl font-bold mb-6">Admin Dashboard</h1>
+//         <div className="flex justify-center items-center h-40">
+//           <p className="text-red-500">Error loading user data</p>
+//         </div>
+//       </div>
+//     );
+//   }
