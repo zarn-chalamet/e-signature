@@ -60,9 +60,7 @@ const UserCharts: React.FC<UserChartsProps> = ({ users }) => {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
   return (
-    <div className="py-6">
-      <h2 className="text-xl font-bold mb-6">Analytics</h2>
-      
+    <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Role Distribution Pie Chart */}
         <div className="bg-white p-4 rounded-lg shadow-md">
@@ -104,7 +102,7 @@ const UserCharts: React.FC<UserChartsProps> = ({ users }) => {
           </ResponsiveContainer>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
