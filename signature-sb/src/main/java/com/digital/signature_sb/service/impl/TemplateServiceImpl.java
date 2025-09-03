@@ -7,6 +7,7 @@ import com.digital.signature_sb.model.TemplateDocument;
 import com.digital.signature_sb.model.UserDocument;
 import com.digital.signature_sb.repository.TemplateRepository;
 import com.digital.signature_sb.repository.UserRepository;
+import com.digital.signature_sb.service.FileService;
 import com.digital.signature_sb.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     private final TemplateRepository templateRepository;
     private final UserRepository userRepository;
+    private final FileService fileService;
 
     @Override
     public TemplateDto uploadFileAndCreateTemplate(MultipartFile file,
@@ -45,16 +47,19 @@ public class TemplateServiceImpl implements TemplateService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: "+email));
 
         // upload file
-        Path uploadPath = Paths.get("upload").toAbsolutePath().normalize();
-        Files.createDirectories(uploadPath);
+//        Path uploadPath = Paths.get("upload").toAbsolutePath().normalize();
+//        Files.createDirectories(uploadPath);
+//
+//        String fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
+//        Path targetLocation = uploadPath.resolve(fileName);
+//        Files.copy(file.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-        String fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
-        Path targetLocation = uploadPath.resolve(fileName);
-        Files.copy(file.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
+        //upload file to cloudinary
+        String fileUrl = fileService.uploadPdf(file);
 
         // create Template Document
         TemplateDocument template = TemplateDocument.builder()
-                .fileUrl(targetLocation.toString())
+                .fileUrl(fileUrl)
                 .uploaderId(user.getId())
                 .isPublic(isPublic)
                 .title(title)
@@ -125,7 +130,7 @@ public class TemplateServiceImpl implements TemplateService {
         }
 
         user.setRecentTemplates(recentTemplates);
-        log.info("recent template",recentTemplates);
+        log.info("recent template"+recentTemplates);
         userRepository.save(user);
 
         return mapToDto(templateDocument);
@@ -190,13 +195,15 @@ public class TemplateServiceImpl implements TemplateService {
             throw new TemplateNotAuthorizedException("You don't have permission to handle this template");
         }
 
-        try{
-            //delete file
-            Path filePath = Paths.get(templateDocument.getFileUrl());
-            Files.deleteIfExists(filePath);
-        } catch (IOException e) {
-            log.error("Failed to delete file: "+ templateDocument.getFileUrl());
-        }
+        //delete file from cloudinary
+
+//        try{
+//            //delete file
+//            Path filePath = Paths.get(templateDocument.getFileUrl());
+//            Files.deleteIfExists(filePath);
+//        } catch (IOException e) {
+//            log.error("Failed to delete file: "+ templateDocument.getFileUrl());
+//        }
 
         //remove the template from the recent templates of all users
         List<UserDocument> allUsers = userRepository.findAll();

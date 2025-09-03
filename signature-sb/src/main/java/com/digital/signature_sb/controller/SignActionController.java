@@ -41,22 +41,21 @@ public class SignActionController {
     public ResponseEntity<Resource> downloadLatestPdfVersion(@PathVariable String requestId) throws IOException {
         RequestSignatureDtoResponse.PdfVersionDto downloadableFile = signActionService.getLatestVersionDownloadablePdfFile(requestId);
 
-        Path path = Paths.get(downloadableFile.getFileUrl());
-        Resource resource = new UrlResource(path.toUri());
+        //get file url(cloudinary url)
+        String fileUrl = downloadableFile.getFileUrl();
+        Resource resource = new UrlResource(fileUrl);
 
-        // Extract file extension from the original file
-        String originalFileName = path.getFileName().toString(); // e.g. "document.pdf"
-        String extension = "";
-        int dotIndex = originalFileName.lastIndexOf(".");
-        if (dotIndex != -1) {
-            extension = originalFileName.substring(dotIndex); // e.g. ".pdf"
-        }
+        // Extract original file name from URL
+        String originalFileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
 
-        String safeFileName = "signed_document_v"+ downloadableFile.getVersion() + extension;
+        // Remove the LocalDateTime prefix (everything before the first underscore)
+        String safeFileName = originalFileName.contains("_")
+                ? originalFileName.substring(originalFileName.indexOf("_") + 1)
+                : originalFileName;
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ safeFileName +"\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + safeFileName + "\"")
                 .body(resource);
     }
 }

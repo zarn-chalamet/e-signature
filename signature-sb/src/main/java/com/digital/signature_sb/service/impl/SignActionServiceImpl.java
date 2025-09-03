@@ -31,6 +31,7 @@ public class SignActionServiceImpl implements SignActionService {
 
     private final UserRepository userRepository;
     private final RequestSignatureRepository requestSignatureRepository;
+    private final FileServiceImpl fileService;
 
     @Override
     public RequestSignatureDtoResponse signByTheCurrentUser(MultipartFile file, String requestId, String email) throws IOException {
@@ -65,12 +66,15 @@ public class SignActionServiceImpl implements SignActionService {
         }
 
         //add file into the upload
-        Path uploadPath = Paths.get("upload").toAbsolutePath().normalize();
-        Files.createDirectories(uploadPath);
+//        Path uploadPath = Paths.get("upload").toAbsolutePath().normalize();
+//        Files.createDirectories(uploadPath);
+//
+//        String fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
+//        Path targetLocation = uploadPath.resolve(fileName);
+//        Files.copy(file.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-        String fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
-        Path targetLocation = uploadPath.resolve(fileName);
-        Files.copy(file.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
+        //upload file to cloudinary
+        String fileUrl = fileService.uploadPdf(file);
 
         //add new version number
         int version = document.getPdfVersions() == null ? 1 : document.getPdfVersions().size() + 1;
@@ -82,7 +86,7 @@ public class SignActionServiceImpl implements SignActionService {
         document.getPdfVersions().add(
                RequestSignatureDocument.PdfVersion.builder()
                        .version(version)
-                       .fileUrl(targetLocation.toString())
+                       .fileUrl(fileUrl)
                        .signedBy(RequestSignatureDocument.SignedBy.builder()
                                .userId(user.getId())
                                .build())
