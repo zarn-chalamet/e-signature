@@ -8,6 +8,7 @@ import com.digital.signature_sb.model.RequestSignatureDocument;
 import com.digital.signature_sb.model.UserDocument;
 import com.digital.signature_sb.repository.RequestSignatureRepository;
 import com.digital.signature_sb.repository.UserRepository;
+import com.digital.signature_sb.service.EmailService;
 import com.digital.signature_sb.service.RequestSignatureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +22,7 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
 
     private final RequestSignatureRepository requestSignatureRepository;
     private final UserRepository userRepository;
+    private final EmailService emailService;
 
     @Override
     public RequestSignatureDtoResponse createRequestSignatureDocument(RequestSignatureDtoForRequest request, String email) {
@@ -42,6 +44,11 @@ public class RequestSignatureServiceImpl implements RequestSignatureService {
                 .templateId(request.getTemplateId())
                 .build();
         RequestSignatureDocument savedDocument = requestSignatureRepository.save(document);
+
+        //send email to the recipient
+        for (RequestSignatureDocument.Recipient recipient : document.getRecipients()) {
+            emailService.sendEmail(user,recipient, document);
+        }
 
 
         return RequestSignatureMapper.mapToDto(savedDocument);
