@@ -5,6 +5,7 @@ import { type TypedUseSelectorHook, useSelector, useDispatch } from "react-redux
 
 import UserReducer from "./slices/UserSlice";
 import AllUsersReducer from "./slices/AllUsersSlice";
+import PublicTemplatesReducer from "./slices/PublicTemplatesSlice";
 
 const persistConfig = {
   key: "e-signature",
@@ -15,7 +16,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: UserReducer,
-  allUsers: AllUsersReducer
+  allUsers: AllUsersReducer,
+  publicTemplates: PublicTemplatesReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

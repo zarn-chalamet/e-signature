@@ -40,25 +40,29 @@ public class TemplateServiceImpl implements TemplateService {
                                                    String title,
                                                    String email) throws IOException {
 
-        //get uploader (current user)
+        // Get uploader (current user)
         UserDocument user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: "+email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-        // upload file
+        // Upload file
         Path uploadPath = Paths.get("upload").toAbsolutePath().normalize();
         Files.createDirectories(uploadPath);
 
         String fileName = UUID.randomUUID() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
         Path targetLocation = uploadPath.resolve(fileName);
-        Files.copy(file.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-        // create Template Document
+        // FIXED: Save the filename only, not the full path
+        String fileUrl = "/api/files/" + fileName;
+
+        // Create Template Document
         TemplateDocument template = TemplateDocument.builder()
-                .fileUrl(targetLocation.toString())
+                .fileUrl(fileUrl)  // Save as web-accessible URL
                 .uploaderId(user.getId())
                 .isPublic(isPublic)
                 .title(title)
                 .build();
+
         template = templateRepository.save(template);
 
         return mapToDto(template);

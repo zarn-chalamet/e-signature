@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Alert } from "./Alert";
+import { Alert } from "../Alert";
 import type { allUsersInfo } from "@/apiEndpoints/Users";
 
 interface User {
@@ -60,9 +60,7 @@ export function UserTable({ users }: UserTableProps) {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">All Users</h2>
-
+    <>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -148,6 +146,6 @@ export function UserTable({ users }: UserTableProps) {
         onConfirm={handleConfirmAction}
         confirmText={selectedAction?.type === "delete" ? "Delete" : "Continue"}
       />
-    </div>
+    </>
   );
 }

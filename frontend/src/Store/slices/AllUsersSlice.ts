@@ -1,7 +1,7 @@
-import type { allUsers } from "@/apiEndpoints/Users";
+import type { allUsers, allUsersInfo } from "@/apiEndpoints/Users";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: allUsers = {
+const initialState = {
     allUsers: [],
 }
 
@@ -9,8 +9,8 @@ const AllUsersSlice = createSlice({
     name: 'allUsers',
     initialState: initialState,
     reducers: {
-        setAllUsers:(state: any, action: PayloadAction<allUsers>) =>{
-            state.allUsers = action.payload.allUsers;
+        setAllUsers:(state: any, action: PayloadAction<allUsersInfo[]>) =>{
+            state.allUsers = action.payload;
         }
     }
 });
