@@ -27,7 +27,7 @@ const TemplateSelector: React.FC<Props> = ({
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h2 className="text-lg font-bold">
           Select a Template
         </h2>
         <div className="relative">

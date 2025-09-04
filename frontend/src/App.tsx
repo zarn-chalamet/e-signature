@@ -11,16 +11,16 @@ import HomeLayout from "./AppComponents/Sidebar/HomeLayout";
 import Profile from "./Pages/Profile";
 import Request from "./Pages/Request";
 import Template from "./Pages/Template";
-import Report from "./Pages/Report";
+import Report from "./Pages/ReceivedRequests";
 import History from "./Pages/History";
 import Testing from "./Pages/testing";
+import ReceivedRequests from "./Pages/ReceivedRequests";
+import SigningPage from "./Pages/SigningPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-        <MainLayout />
-    ), // <Outlet /> renders here
+    element: <MainLayout />, // <Outlet /> renders here
     children: [
       {
         element: (
@@ -33,8 +33,15 @@ const router = createBrowserRouter([
           { path: "profile", element: <Profile /> },
           { path: "request", element: <Request /> },
           { path: "template", element: <Template /> },
-          { path: "report", element: <Report /> },
+          {
+            path: "received",
+            element: <ReceivedRequests />,
+          },
           { path: "history", element: <History /> },
+          {
+            path: "received/:id",
+            element: <SigningPage />,
+          },
         ],
       },
       {

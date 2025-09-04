@@ -58,7 +58,6 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers("/v1/api/auth/**").permitAll()
-                        .requestMatchers("/api/files/**").permitAll()
                         .requestMatchers(
                                 "/swagger-ui.html",      // main Swagger page
                                 "/swagger-ui/**",        // Swagger UI assets

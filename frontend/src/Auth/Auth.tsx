@@ -130,9 +130,9 @@ const Auth = () => {
       }
     }
   };
-
+// bg-gradient-to-br from-gray-50 to-gray-900
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <motion.div
         initial="hidden"
         animate="visible"
@@ -140,7 +140,7 @@ const Auth = () => {
         className="w-full max-w-md"
       >
         <motion.div
-          className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+          className="bg-card rounded-xl shadow-lg overflow-hidden border border-gray-100"
           whileHover={{ y: -5 }}
           transition={{ duration: 0.3 }}
         >
@@ -204,7 +204,7 @@ const Auth = () => {
                 <motion.div variants={itemVariants} className="space-y-1">
                   <label
                     htmlFor="adminCode"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium"
                   >
                     Admin Code
                   </label>
@@ -225,7 +225,7 @@ const Auth = () => {
               <motion.div variants={itemVariants} className="space-y-1">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium"
                 >
                   Email address
                 </label>
@@ -238,7 +238,7 @@ const Auth = () => {
                   value={mode === "login" ? loginData.email : adminLoginData.email}
                   onChange={handleChange}
                   autoComplete="email"
-                  className="w-full px-4 py-3 border border-gray-200 text-gray-800 rounded-lg focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
                   placeholder="your.email@example.com"
                 />
               </motion.div>
@@ -247,14 +247,14 @@ const Auth = () => {
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium"
                   >
                     Password
                   </label>
                   <motion.a
                     whileHover={{ x: 2 }}
                     href="#"
-                    className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+                    className="text-xs transition-colors"
                   >
                     Forgot password?
                   </motion.a>
@@ -268,7 +268,7 @@ const Auth = () => {
                   onChange={handleChange}
                   required
                   autoComplete="current-password"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg text-gray-800 focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-800 focus:border-transparent transition-all"
                   placeholder="••••••••"
                 />
               </motion.div>
