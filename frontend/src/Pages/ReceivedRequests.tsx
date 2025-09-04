@@ -57,7 +57,7 @@ const ReceivedRequests = () => {
         {requestsData.allRequests.map((request) => (
           <div
             key={request.id}
-            className="bg-background rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer"
+            className="bg-card rounded-lg shadow-md p-4 border border-border hover:shadow-lg transition-shadow cursor-pointer"
             onClick={() => handleCardClick(request.id)}
           >
             <div className="flex justify-between items-start mb-3">
@@ -66,7 +66,7 @@ const ReceivedRequests = () => {
                 className={`px-2 py-1 text-xs rounded-full ${
                   request.status === "Pending"
                     ? "bg-yellow-100 text-yellow-800"
-                    : request.status === "Completed"
+                    : request.status === "Approved"
                     ? "bg-green-100 text-green-800"
                     : "bg-gray-100 text-gray-800"
                 }`}
@@ -75,18 +75,18 @@ const ReceivedRequests = () => {
               </span>
             </div>
 
-            <p className="text-gray-600 text-sm mb-2">
+            <p className="text-secondary-foreground text-sm mb-2">
               <strong>Subject:</strong> {request.emailSubject}
             </p>
 
-            <p className="text-gray-600 text-sm mb-2">
+            <p className="text-secondary-foreground text-sm mb-2">
               <strong>Message:</strong>{" "}
               {request.emailMessage.length > 50
                 ? `${request.emailMessage.substring(0, 50)}...`
                 : request.emailMessage}
             </p>
 
-            <div className="text-gray-500 text-xs mb-3">
+            <div className="text-gray-400 text-xs mb-3">
               <strong>Recipients:</strong> {request.recipients.length}
               {request.recipients.some((r) => r.signed) && (
                 <span className="ml-2 text-green-600">
