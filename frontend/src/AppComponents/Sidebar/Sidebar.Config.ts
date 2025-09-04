@@ -9,15 +9,17 @@ import {
   Settings,
   HelpCircle,
   LogOut,
+  ClipboardClock,
+  LayoutTemplate,
 } from "lucide-react"
 
 export const mainNav = [
   { title: "Dashboard", href: "/", icon: Home },
   { title: "Profile", href: "/profile", icon: User },
-  { title: "Request", href: "/request", icon: Mail },
-  { title: "Template", href: "/template", icon: Calendar },
+  { title: "Send Request", href: "/request", icon: Mail },
+  { title: "Templates", href: "/template", icon: LayoutTemplate },
   { title: "Received Requests", href: "/received", icon: FileText },
-  { title: "History", href: "/history", icon: BarChart3 },
+  { title: "History", href: "/history", icon: ClipboardClock },
 ]
 
 export const bottomNav = [

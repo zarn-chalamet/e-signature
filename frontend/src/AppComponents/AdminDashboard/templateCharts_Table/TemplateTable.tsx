@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 // import { AlertDialogDemo } from "./AlertDialogDemo";
 import { Alert } from "../Alert";
+import { deleteTemplate, togglePublic } from "@/apiEndpoints/Templates";
 
 interface Template {
   id: string;
@@ -36,6 +37,7 @@ export function TemplateTable({ templates }: TemplateTableProps) {
   const [localTemplates, setLocalTemplates] = useState<Template[]>(templates);
 
   const handleTogglePublic = (templateId: string) => {
+    const response = togglePublic(templateId);
     setLocalTemplates((prev) =>
       prev.map((template) =>
         template.id === templateId
@@ -58,9 +60,10 @@ export function TemplateTable({ templates }: TemplateTableProps) {
     }
   };
 
-  const handleConfirmAction = () => {
+  const handleConfirmAction = async () => {
     if (selectedAction && selectedAction.type === "delete") {
       // Implement delete logic here
+      const response = await deleteTemplate(selectedAction.template.id);
       setLocalTemplates((prev) =>
         prev.filter((template) => template.id !== selectedAction.template.id)
       );

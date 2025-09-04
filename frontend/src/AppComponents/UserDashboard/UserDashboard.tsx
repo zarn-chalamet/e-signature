@@ -26,7 +26,7 @@ const UserDashboard = ({
   const cards = [
     {
       title: "Public Templates",
-      path: "/dashboard/templates",
+      path: "/template",
       count: publicTemplates?.length || 0,
       bgColor: "bg-yellow-200",
       textColor: "text-yellow-800",

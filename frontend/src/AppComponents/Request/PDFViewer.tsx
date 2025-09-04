@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertCircle, Check, Download, Loader } from "lucide-react";
+import { AlertCircle, Check, Download, Loader, ZoomIn, ZoomOut } from "lucide-react";
 import type { Recipient, SignaturePosition, Template, User } from "./types";
 
 // IMPORTANT: keep your existing worker path
@@ -137,18 +137,18 @@ const PDFViewer: React.FC<Props> = ({
 
           <button
             onClick={() => setPdfScale(Math.max(0.5, +(pdfScale - 0.1).toFixed(2)))}
-            className="px-2 py-1 bg-gray-100 rounded text-gray-800"
+            className="px-2 py-1 rounded"
             aria-label="Zoom out"
           >
-            −
+            <ZoomOut className="h-5 w-5"/>
           </button>
           <span className="text-sm w-10 text-center">{Math.round(pdfScale * 100)}%</span>
           <button
             onClick={() => setPdfScale(Math.min(2, +(pdfScale + 0.1).toFixed(2)))}
-            className="px-2 py-1 bg-gray-100 rounded text-gray-800"
+            className="px-2 py-1 rounded"
             aria-label="Zoom in"
           >
-            +
+            <ZoomIn className="h-5 w-5"/>
           </button>
 
           <a

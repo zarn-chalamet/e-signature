@@ -130,7 +130,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userData, onUpdateProfile }) 
               exit={{ opacity: 0, height: 0 }}
               className="mb-6"
             >
-              <div className="space-y-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="space-y-4 p-4 bg-gray-50 dark:bg-stone-900 rounded-lg">
                 <div className="flex gap-4">
                   <div className="flex-1">
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -197,7 +197,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userData, onUpdateProfile }) 
               {/* User Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <motion.div 
-                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-stone-900 rounded-lg"
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
@@ -212,7 +212,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userData, onUpdateProfile }) 
                 </motion.div>
 
                 <motion.div 
-                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-stone-900 rounded-lg"
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
@@ -242,7 +242,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userData, onUpdateProfile }) 
 
             </div>
           ) : (
-            <div className="text-center py-10 bg-gray-50 dark:bg-gray-700 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
+            <div className="text-center py-10 bg-gray-50 dark:bg-stone-900 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
               <FileText className="h-8 w-8 text-gray-400 dark:text-gray-500 mx-auto mb-2" />
               <p className="text-gray-600 dark:text-gray-400 text-sm">No recent templates</p>
               <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">Your recently used templates will appear here</p>

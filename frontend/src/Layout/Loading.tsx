@@ -3,7 +3,7 @@ import { Loader2 } from "lucide-react"; // Using shadcn's Lucide icons
 
 const Loading = () => {
   return (
-    <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center bg-gray-100">
+    <div className="fixed inset-0 z-50 bg-gray-100 dark:bg-black backdrop-blur-sm flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -24,11 +24,9 @@ const Loading = () => {
           className="relative"
         >
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary p-1">
-            <div className="w-full h-full rounded-xl bg-background flex items-center justify-center">
-
-            </div>
+            <div className="w-full h-full rounded-xl bg-background flex items-center justify-center"></div>
           </div>
-          
+
           {/* Floating particles */}
           {[...Array(4)].map((_, i) => (
             <motion.div
@@ -61,22 +59,24 @@ const Loading = () => {
           >
             <Loader2 className="h-8 w-8 text-primary animate-spin" />
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
             className="text-center"
           >
-            <h2 className="text-xl font-semibold tracking-tight text-gray-900">Loading Up</h2>
-            <p className="text-sm mt-1 text-gray-700">
+            <h2 className="text-xl font-semibold tracking-tight">
+              Loading Up
+            </h2>
+            <p className="text-sm mt-1">
               Preparing everything for you
             </p>
           </motion.div>
         </div>
 
         {/* Progress bar */}
-        <motion.div 
+        <motion.div
           initial={{ width: 0 }}
           animate={{ width: "80%" }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
@@ -85,10 +85,10 @@ const Loading = () => {
           <motion.div
             initial={{ x: "-100%" }}
             animate={{ x: "100%" }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
             className="h-full w-1/3 bg-gradient-to-r from-transparent via-primary to-transparent"
           />
@@ -98,5 +98,4 @@ const Loading = () => {
   );
 };
 
-
-export default Loading
+export default Loading;

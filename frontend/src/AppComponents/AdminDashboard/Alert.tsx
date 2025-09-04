@@ -14,7 +14,7 @@ interface AlertDialogProps {
   onOpenChange: (open: boolean) => void;
   title: string;
   description: string;
-  onConfirm: () => void;
+  onConfirm: (id:any) => void;
   confirmText?: string;
   cancelText?: string;
 }

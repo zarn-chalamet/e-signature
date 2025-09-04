@@ -274,7 +274,7 @@ const SigningPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading document...</p>
@@ -285,7 +285,7 @@ const SigningPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="w-full max-w-md mx-4">
           <CardHeader>
             <CardTitle className="text-destructive flex items-center gap-2">
@@ -308,7 +308,7 @@ const SigningPage = () => {
 
   if (!request) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="w-full max-w-md mx-4">
           <CardHeader>
             <CardTitle>Document Not Found</CardTitle>

@@ -56,7 +56,7 @@ const AdminDashboard = ({
     },
     {
       title: "Templates",
-      path: "/dashboard/templates",
+      path: "/template",
       count: publicTemplates?.length || 0,
       bgColor: "bg-yellow-200",
       textColor: "text-yellow-800",
@@ -117,29 +117,24 @@ const AdminDashboard = ({
             </div>
           </div>
         ))}
-        {/* <CreateNewUser
-          trigger={
-            <div className="w-full h-28 bg-card rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer flex flex-col items-center gap-2 text-center justify-center">
-              <span>Create new User</span> <Plus />
-            </div>
-          }
-        /> */}
-        {/* <CreateNewUser
-          trigger={
-            <div className="w-full h-28 bg-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer flex flex-col items-center gap-2 text-center justify-center">
-              <span>Create new Template</span> <Plus />
-            </div>
-          }
-        /> */}
       </div>
 
       {/* Charts and Part */}
       <div className="py-6">
         <div className="flex flex-row items-center justify-between pb-6">
           <h2 className="text-xl font-bold">Users Analytics</h2>
-          <Button variant={"outline"} onClick={toggleMode}>
-            {mode == "chart" ? "View Table" : "View Charts"}{" "}
-          </Button>
+          <div className="flex gap-4 flex-row">
+            <CreateNewUser
+              trigger={
+                <Button>
+                  Create new User <Plus />
+                </Button>
+              }
+            />
+            <Button variant={"outline"} onClick={toggleMode}>
+              {mode == "chart" ? "View Table" : "View Charts"}{" "}
+            </Button>
+          </div>
         </div>
 
         {mode == "chart" ? (
@@ -186,3 +181,22 @@ export default AdminDashboard;
 //     queryFn: getAllUsers,
 //   });
 //   dispatch(setAllUsers(userData?.allUsers ?? []));
+
+{
+  /* <CreateNewUser
+          trigger={
+            <div className="w-full h-28 bg-card rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer flex flex-col items-center gap-2 text-center justify-center">
+              <span>Create new User</span> <Plus />
+            </div>
+          }
+        /> */
+}
+{
+  /* <CreateNewUser
+          trigger={
+            <div className="w-full h-28 bg-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer flex flex-col items-center gap-2 text-center justify-center">
+              <span>Create new Template</span> <Plus />
+            </div>
+          }
+        /> */
+}

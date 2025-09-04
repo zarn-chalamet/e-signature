@@ -21,8 +21,15 @@ const ReceivedRequests = () => {
 
   if (!requestsData?.allRequests || requestsData.allRequests.length === 0) {
     return (
-      <div className="p-4">
-        <h1 className="text-xl font-semibold mb-4">Received Requests</h1>
+      <div className="pb-4">
+        <motion.h1
+        className="text-2xl font-semibold mb-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        Received Requests
+      </motion.h1>
         <p>No requests found.</p>
       </div>
     );
@@ -43,9 +50,9 @@ const ReceivedRequests = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="pb-10">
       <motion.h1
-        className="text-xl font-semibold mb-6"
+        className="text-2xl font-semibold mb-6"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}

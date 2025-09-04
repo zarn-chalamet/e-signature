@@ -1,8 +1,10 @@
 // TemplateSelector.tsx
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileText, Search, Shield, Users } from "lucide-react";
+import { FileText, Plus, Search, Shield, Users } from "lucide-react";
 import type { Template } from "./types";
+import CreateTemplate from "../Template/CreateTemplate";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   templates: Template[];
@@ -27,9 +29,7 @@ const TemplateSelector: React.FC<Props> = ({
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold">
-          Select a Template
-        </h2>
+        <h2 className="text-lg font-bold">Select a Template</h2>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
@@ -45,7 +45,7 @@ const TemplateSelector: React.FC<Props> = ({
         <button
           className={`flex items-center justify-center py-2 px-4 font-medium rounded-md transition-all flex-1 ${
             activeTab === "public"
-              ? "bg-background shadow-sm text-foreground"
+              ? "bg-indigo-400 dark:bg-indigo-900 shadow-sm text-white"
               : "text-muted-foreground hover:text-foreground"
           }`}
           onClick={() => setActiveTab("public")}
@@ -56,13 +56,13 @@ const TemplateSelector: React.FC<Props> = ({
         <button
           className={`flex items-center justify-center py-2 px-4 font-medium rounded-md transition-all flex-1 ${
             activeTab === "private"
-              ? "bg-background shadow-sm text-foreground"
+              ? "bg-indigo-400 dark:bg-indigo-900 shadow-sm text-white"
               : "text-muted-foreground hover:text-foreground"
           }`}
           onClick={() => setActiveTab("private")}
         >
           <Shield className="h-4 w-4 mr-2" />
-          Private Templates
+          My Templates
         </button>
       </div>
 
@@ -83,25 +83,29 @@ const TemplateSelector: React.FC<Props> = ({
                   onClick={() => onSelectTemplate(t)}
                   className={`group text-left border rounded-xl p-4 cursor-pointer transition-all w-full h-full ${
                     selectedTemplate?.id === t.id
-                      ? "border-blue-500 bg-blue-50/50 dark:bg-blue-950/20 shadow-md"
-                      : "border-border hover:border-blue-300 hover:shadow-md bg-background"
+                      ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20 shadow-md"
+                      : "border-border hover:border-emerald-300 hover:shadow-md bg-background"
                   }`}
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-start mb-3">
-                    <div className={`p-2 rounded-lg mr-3 ${
-                      selectedTemplate?.id === t.id 
-                        ? "bg-blue-100 dark:bg-blue-900/30" 
-                        : "bg-muted"
-                    }`}>
-                      <FileText className={`h-5 w-5 ${
-                        selectedTemplate?.id === t.id 
-                          ? "text-blue-600" 
-                          : "text-muted-foreground"
-                      }`} />
+                    <div
+                      className={`p-2 rounded-lg mr-3 ${
+                        selectedTemplate?.id === t.id
+                          ? "bg-emerald-100 dark:bg-emerald-900/30"
+                          : "bg-muted"
+                      }`}
+                    >
+                      <FileText
+                        className={`h-5 w-5 ${
+                          selectedTemplate?.id === t.id
+                            ? "text-emerald-600"
+                            : "text-muted-foreground"
+                        }`}
+                      />
                     </div>
-                    <h3 className="font-semibold text-foreground truncate group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-semibold text-foreground truncate group-hover:text-emerald-600 transition-colors">
                       {t.title}
                     </h3>
                   </div>
@@ -112,20 +116,28 @@ const TemplateSelector: React.FC<Props> = ({
               </motion.div>
             ))
           ) : (
-            <motion.div 
-              className="col-span-2 text-center py-12 px-4 rounded-xl border border-dashed border-border"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-            >
-              <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" />
-              <p className="text-muted-foreground font-medium">
-                No {activeTab} templates available
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Create a new template or check back later
-              </p>
-            </motion.div>
+            <>
+              <motion.div
+                className="col-span-2 text-center py-12 px-4 rounded-xl border border-dashed border-border"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" />
+                <p className="text-muted-foreground font-medium">
+                  No {activeTab} templates available
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Create a new template or check back later
+                </p>
+                <div className="py-2">
+                <CreateTemplate trigger={
+                  <Button variant={"outline"}>Create new Template <Plus/> </Button>
+                } />
+              </div>
+              </motion.div>
+              
+            </>
           )}
         </AnimatePresence>
       </div>

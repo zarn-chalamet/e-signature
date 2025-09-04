@@ -71,7 +71,7 @@ export const deleteUser = async (userId: string) => {
 
 export const toggleRestrict = async (userId: string) => {
       try {
-    const response = await axiosInstance.delete(
+    const response = await axiosInstance.patch(
       `/v1/api/users/${userId}/toggle-restrict`
     );
     return response.data;

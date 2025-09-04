@@ -10,7 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "../Alert";
-import type { allUsersInfo } from "@/apiEndpoints/Users";
+import { deleteUser, toggleRestrict, type allUsersInfo } from "@/apiEndpoints/Users";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface User {
   id: string;
@@ -35,19 +36,23 @@ export function UserTable({ users }: UserTableProps) {
     type: "restrict" | "delete";
     user: User;
   } | null>(null);
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries({ queryKey: ["allUsers"] });
 
   const handleActionClick = (type: "restrict" | "delete", user: User) => {
     setSelectedAction({ type, user });
     setAlertOpen(true);
   };
 
-  const handleConfirmAction = () => {
+  const handleConfirmAction = async () => {
     if (selectedAction) {
       if (selectedAction.type === "restrict") {
         // Implement restrict logic here
+        const response = await toggleRestrict(selectedAction.user.id);
         console.log(`Restricting user: ${selectedAction.user.id}`);
       } else if (selectedAction.type === "delete") {
         // Implement delete logic here
+        const response = await deleteUser(selectedAction.user.id);
         console.log(`Deleting user: ${selectedAction.user.id}`);
       }
     }

@@ -67,21 +67,6 @@ const Request: React.FC = () => {
 
     let fileUrl = template.fileUrl;
 
-    // Convert local path to API file URL
-    if (fileUrl.startsWith("/Users/") || fileUrl.startsWith("C:\\")) {
-      const filename = fileUrl.split("/").pop() || fileUrl.split("\\").pop();
-      fileUrl = `/api/files/${filename}`;
-      console.warn(`Converting local file path to server URL: ${fileUrl}`);
-    }
-
-    const backendUrl = import.meta.env?.VITE_API_URL || "http://localhost:8080";
-
-    if (fileUrl.startsWith("/api/")) {
-      fileUrl = `${backendUrl}${fileUrl}`;
-    } else if (!fileUrl.startsWith("http")) {
-      fileUrl = `${backendUrl}/api/files/${fileUrl}`;
-    }
-
     setProcessedFileUrl(fileUrl);
     setSelectedTemplate({ ...template, fileUrl });
   };
@@ -164,7 +149,7 @@ const Request: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mb-10">
       <div className="max-w-7xl mx-auto">
         <motion.h1
           className="text-2xl font-semibold mb-6"
@@ -314,7 +299,7 @@ const Request: React.FC = () => {
                   !emailSubject ||
                   !emailMessage
                 }
-                className="w-full px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 font-medium flex items-center justify-center"
+                className="w-full px-4 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-900 disabled:opacity-50 font-medium flex items-center justify-center disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -334,3 +319,18 @@ const Request: React.FC = () => {
 };
 
 export default Request;
+
+
+    // if (fileUrl.startsWith("/Users/") || fileUrl.startsWith("C:\\")) {
+    //   const filename = fileUrl.split("/").pop() || fileUrl.split("\\").pop();
+    //   fileUrl = `/api/files/${filename}`;
+    //   console.warn(`Converting local file path to server URL: ${fileUrl}`);
+    // }
+
+    // const backendUrl = import.meta.env?.VITE_API_URL || "http://localhost:8080";
+
+    // if (fileUrl.startsWith("/api/")) {
+    //   fileUrl = `${backendUrl}${fileUrl}`;
+    // } else if (!fileUrl.startsWith("http")) {
+    //   fileUrl = `${backendUrl}/api/files/${fileUrl}`;
+    // }
