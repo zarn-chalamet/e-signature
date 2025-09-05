@@ -33,6 +33,16 @@ export interface ErrorResponse {
   message: string;
 }
 
+interface signedBy {
+    userId: string;
+}
+
+interface pdfVersion{
+    version: string;
+    fileUrl: string;
+    signedBy: signedBy;
+}
+
 export interface receivedRequest {
   id: string;
   senderId: string;
@@ -42,7 +52,7 @@ export interface receivedRequest {
   emailSubject: string;
   emailMessage: string;
   templateId: string;
-  pdfVersions: string;
+  pdfVersions: pdfVersion[];
   createdAt: string;
   updatedAt: string;
 }
@@ -53,6 +63,19 @@ export interface allReceivedRequests {
 export interface sentRequests {
   sentRequests: receivedRequest[];
 }
+
+export const getReceivedRequests = async (): Promise<allReceivedRequests> => {
+  try {
+    const response = await axiosInstance.get(
+      "/v1/api/requests/received-requests"
+    );
+    return {
+      allRequests: response.data,
+    };
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Error fetching requests");
+  }
+};
 
 // The API call function
 export const createRequest = async (
@@ -77,18 +100,6 @@ export const createRequest = async (
   }
 };
 
-export const getReceivedRequests = async (): Promise<allReceivedRequests> => {
-  try {
-    const response = await axiosInstance.get(
-      "/v1/api/requests/received-requests"
-    );
-    return {
-      allRequests: response.data,
-    };
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || "Error fetching requests");
-  }
-};
 
 export const getSentRequests = async (): Promise<sentRequests> => {
   try {
@@ -132,6 +143,7 @@ export const downloadRequestPdf = async (requestId: string): Promise<Blob> => {
       `/v1/api/sign/download/${requestId}`,
       { responseType: 'blob' }
     );
+    console.log(response.data);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Error downloading request PDF");

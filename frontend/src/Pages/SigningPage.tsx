@@ -73,8 +73,11 @@ const SigningPage = () => {
 
       let blob;
       if (request.pdfVersions && request.pdfVersions.length > 0) {
+        console.log("Downloading latest version");
+        
         blob = await downloadRequestPdf(request.id);
       } else {
+        console.log("Downloading first version");
         blob = await downloadTemplatePdf(request.templateId);
       }
       return blob;
@@ -593,7 +596,7 @@ const SigningPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex gap-4 flex-wrap"
+          className="flex gap-4 items-center justify-center flex-wrap"
         >
           <Button
             onClick={completeSigning}

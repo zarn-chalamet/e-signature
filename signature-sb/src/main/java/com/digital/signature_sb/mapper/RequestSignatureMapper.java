@@ -18,6 +18,7 @@ public class RequestSignatureMapper {
                 .emailMessage(document.getEmailMessage())
                 .templateId(document.getTemplateId())
                 .recipients(recipientsDocumentToDto(document.getRecipients()))
+                .pdfVersions(pdfVersionsDocumentToDto(document.getPdfVersions()))
                 .createdAt(document.getCreatedAt())
                 .updatedAt(document.getUpdatedAt())
                 .build();
@@ -52,6 +53,22 @@ public class RequestSignatureMapper {
                                         .y(pos.getY())
                                         .build()
                                 ).toList()
+                        )
+                        .build()
+                ).toList();
+    }
+    public static List<RequestSignatureDtoResponse.PdfVersionDto> pdfVersionsDocumentToDto(List<RequestSignatureDocument.PdfVersion> pdfVersions) {
+        if (pdfVersions == null) return null;
+        return pdfVersions.stream()
+                .map(v -> RequestSignatureDtoResponse.PdfVersionDto.builder()
+                        .version(v.getVersion())
+                        .fileUrl(v.getFileUrl())
+                        .signedBy(v.getSignedBy() != null ?
+                                RequestSignatureDtoResponse.SignedByDto.builder()
+                                        .userId(v.getSignedBy().getUserId())
+                                        .signedAt(v.getSignedBy().getSignedAt())
+                                        .build()
+                                : null
                         )
                         .build()
                 ).toList();

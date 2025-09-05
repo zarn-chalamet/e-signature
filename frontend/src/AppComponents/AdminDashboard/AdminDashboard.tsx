@@ -48,7 +48,7 @@ const AdminDashboard = ({
   const cards = [
     {
       title: "Users",
-      path: "/dashboard/allUsers",
+      path: "/",
       count: allUsers?.length || 0,
       bgColor: "bg-blue-200",
       textColor: "text-blue-800",
@@ -72,7 +72,7 @@ const AdminDashboard = ({
     },
     {
       title: "Sent Requests",
-      path: "/dashboard/allUsers",
+      path: "/request",
       count: sentRequests?.length || 0,
       bgColor: "bg-green-200",
       textColor: "text-green-800",
@@ -103,7 +103,8 @@ const AdminDashboard = ({
       </motion.h1>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((item, index) => (
-          <div
+          <Link
+            to={item.path}
             key={index}
             className={`w-full h-28 ${item.bgColor} ${item.hoverColor} rounded-lg shadow-lg p-6 flex flex-col justify-between transition-all duration-300 transform hover:scale-[1.02] cursor-pointer`}
           >
@@ -115,7 +116,7 @@ const AdminDashboard = ({
                 {item.count}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

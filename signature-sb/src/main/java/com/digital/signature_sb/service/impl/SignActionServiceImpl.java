@@ -131,7 +131,7 @@ public class SignActionServiceImpl implements SignActionService {
 
         //extract the latest version of pdf
         RequestSignatureDocument.PdfVersion latestPdfVersion =
-                document.getPdfVersions().get(document.getPdfVersions().size() - 1);
+                document.getPdfVersions().getLast();
 
         return RequestSignatureDtoResponse.PdfVersionDto
                 .builder()

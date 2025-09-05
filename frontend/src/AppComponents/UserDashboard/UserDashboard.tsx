@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import RequestsChart from "./RequestsChart";
 interface UserDashboardProps {
   publicTemplates: any;
   templateLoading: boolean;
@@ -42,7 +43,7 @@ const UserDashboard = ({
     },
     {
       title: "Sent Requests",
-      path: "/sentrequests",
+      path: "/request",
       count: sentRequests?.length || 0,
       bgColor: "bg-green-200",
       textColor: "text-green-800",
@@ -77,6 +78,11 @@ const UserDashboard = ({
             </div>
           </Link>
         ))}
+      </div>
+
+      <div className="py-6">
+            <h1 className="text-lg mb-6 font-semibold">Received Requests Analytics</h1>
+          <RequestsChart requests={allRequests}/>
       </div>
     </>
   );

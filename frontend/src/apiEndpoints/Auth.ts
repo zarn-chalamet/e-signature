@@ -77,7 +77,7 @@ export const getUserProfile = async (): Promise<userInfo | error> => {
       email: response.data.email,
       firstName: response.data.firstName,
       lastName: response.data.lastName,
-      image: response.data.image,
+      image: response.data.imageUrl,
       recentTemplates: response.data.recentTemplates,
       createdAt: response.data.createdAt
     };
