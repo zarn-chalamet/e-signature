@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            String frontendLink = "http://localhost:5173/" + document.getId();
+            String frontendLink = "http://localhost:5173/received/" + document.getId();
 
             String emailContent = "<!DOCTYPE html>"
                     + "<html>"
