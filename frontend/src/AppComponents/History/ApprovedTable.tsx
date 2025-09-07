@@ -11,22 +11,26 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "../AdminDashboard/Alert";
 import { useQueryClient } from "@tanstack/react-query";
-import type { allReceivedRequests } from "@/apiEndpoints/Signature"; // Adjust import path as needed
- // Adjust import path as needed
+import type { allReceivedRequests } from "@/apiEndpoints/Signature";
 
 interface ApprovedTableProps {
   requests: allReceivedRequests | undefined | null;
+  toggleApprovedRequests: boolean; // true = all requests, false = only approved
 }
 
-export function ApprovedTable({ requests }: ApprovedTableProps) {
+export function ApprovedTable({
+  requests,
+  toggleApprovedRequests,
+}: ApprovedTableProps) {
   const [alertOpen, setAlertOpen] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  // Filter only approved requests
-  const approvedRequests = requests?.allRequests?.filter(
-    request => request.status === "Approved"
-  ) || [];
+  // Decide which requests to show
+  const displayedRequests =
+    requests?.allRequests?.filter((request) =>
+      toggleApprovedRequests ? true : request.status === "Approved"
+    ) || [];
 
   const handleDownloadClick = (requestId: string) => {
     setSelectedRequest(requestId);
@@ -35,17 +39,18 @@ export function ApprovedTable({ requests }: ApprovedTableProps) {
 
   const handleConfirmDownload = () => {
     if (selectedRequest) {
-      const request = approvedRequests.find(req => req.id === selectedRequest);
-      if (request && request.pdfVersions.length > 0) {
-        // Get the last pdfVersion
-        const lastVersion = request.pdfVersions[request.pdfVersions.length - 1];
-        // Create download link
-        const link = document.createElement('a');
-        link.href = lastVersion.fileUrl;
-        link.download = `${request.title}_v${lastVersion.version}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      const request = displayedRequests.find((req) => req.id === selectedRequest);
+      if (request && request.pdfVersions && request.pdfVersions.length > 0) {
+        const lastVersion =
+          request.pdfVersions[request.pdfVersions.length - 1];
+        if (lastVersion?.fileUrl) {
+          const link = document.createElement("a");
+          link.href = lastVersion.fileUrl;
+          link.download = `${request.title}_v${lastVersion.version}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
       }
     }
     setAlertOpen(false);
@@ -56,15 +61,14 @@ export function ApprovedTable({ requests }: ApprovedTableProps) {
     return new Date(dateString).toLocaleDateString();
   };
 
-  const getLastPdfVersionUrl = (pdfVersions: any[]) => {
-    if (pdfVersions.length === 0) return null;
-    return pdfVersions[pdfVersions.length - 1].fileUrl;
-  };
-
-  if (!requests || approvedRequests.length === 0) {
+  if (!requests || displayedRequests.length === 0) {
     return (
       <div className="rounded-md border p-6 text-center">
-        <p className="text-gray-500">No approved requests available</p>
+        <p className="text-gray-500">
+          {toggleApprovedRequests
+            ? "No requests available"
+            : "No approved requests available"}
+        </p>
       </div>
     );
   }
@@ -84,20 +88,26 @@ export function ApprovedTable({ requests }: ApprovedTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {approvedRequests.map((request) => (
+            {displayedRequests.map((request) => (
               <TableRow key={request.id}>
-                <TableCell className="font-medium">
-                  {request.title}
-                </TableCell>
+                <TableCell className="font-medium">{request.title}</TableCell>
                 <TableCell>{request.senderId}</TableCell>
                 <TableCell>
-                  {request.recipients.length} recipient(s)
+                  {request.recipients
+                    ? `${request.recipients.length} recipient(s)`
+                    : "No recipients"}
                 </TableCell>
                 <TableCell>{formatDate(request.createdAt)}</TableCell>
                 <TableCell>
                   <Badge
-                    variant={request.status === "Approved" ? "default" : "secondary"}
-                    className={request.status === "Approved" ? "bg-green-600" : "bg-yellow-600"}
+                    variant={
+                      request.status === "Approved" ? "default" : "secondary"
+                    }
+                    className={
+                      request.status === "Approved"
+                        ? "bg-green-600"
+                        : "bg-yellow-600"
+                    }
                   >
                     {request.status}
                   </Badge>
@@ -108,7 +118,10 @@ export function ApprovedTable({ requests }: ApprovedTableProps) {
                       variant="outline"
                       size="sm"
                       onClick={() => handleDownloadClick(request.id)}
-                      disabled={request.pdfVersions.length === 0}
+                      disabled={
+                        !request.pdfVersions ||
+                        request.pdfVersions.length === 0
+                      }
                     >
                       Download
                     </Button>
