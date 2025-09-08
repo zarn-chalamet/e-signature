@@ -1,4 +1,6 @@
 import axiosInstance from "@/Axios/axios";
+import { setLogOutUser } from "@/Store/slices/UserSlice";
+import store from "@/Store/Store";
 
 interface loginData {
   email: string;
@@ -56,6 +58,7 @@ export const logout = async (): Promise<void> => {
   try {
     const response = await axiosInstance.post("/v1/api/auth/logout");
 
+    store.dispatch(setLogOutUser());
     localStorage.removeItem("authToken");
 
     delete axiosInstance.defaults.headers.common["Authorization"];

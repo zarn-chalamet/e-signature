@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "../AdminDashboard/Alert";
 import { useQueryClient } from "@tanstack/react-query";
-import type { allReceivedRequests } from "@/apiEndpoints/Signature";
+import type { allReceivedRequests, sentRequests } from "@/apiEndpoints/Signature";
 
 interface ApprovedTableProps {
   requests: allReceivedRequests | undefined | null;

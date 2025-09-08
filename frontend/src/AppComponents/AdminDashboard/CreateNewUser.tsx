@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -11,8 +12,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useNavigate } from "react-router-dom";
-// import { createNewRoom } from "@/apiEndpoints/Room";
 import { toast } from "sonner";
 import { createUser } from "@/apiEndpoints/Users";
 import { useQueryClient } from "@tanstack/react-query";
@@ -22,10 +29,11 @@ interface userFormData {
   lastName: string;
   email: string;
   password: string;
+  role: "ADMIN_ROLE" | "USER_ROLE";
 }
 
 interface CreateNewUserProps {
-  trigger: React.ReactNode; // This is where we accept anything: Button, Card, etc.
+  trigger: React.ReactNode;
 }
 
 const CreateNewUser = ({ trigger }: CreateNewUserProps) => {
@@ -36,6 +44,7 @@ const CreateNewUser = ({ trigger }: CreateNewUserProps) => {
     lastName: "",
     email: "",
     password: "",
+    role: "USER_ROLE", // default role
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +52,13 @@ const CreateNewUser = ({ trigger }: CreateNewUserProps) => {
     setUserData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleRoleChange = (value: "ADMIN_ROLE" | "USER_ROLE") => {
+    setUserData((prev) => ({
+      ...prev,
+      role: value,
     }));
   };
 
@@ -64,9 +80,25 @@ const CreateNewUser = ({ trigger }: CreateNewUserProps) => {
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Create Room</DialogTitle>
+            <DialogTitle>Create User</DialogTitle>
+            <DialogDescription>
+              Fill in the details to create a new user account.
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
+            {/* Role dropdown */}
+            <div className="grid gap-3">
+              <Label htmlFor="role">Role</Label>
+              <Select onValueChange={handleRoleChange} defaultValue="USER_ROLE">
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ADMIN_ROLE">Admin</SelectItem>
+                  <SelectItem value="USER_ROLE">User</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <div className="grid gap-3">
               <Label htmlFor="firstName">First Name</Label>
               <Input

@@ -61,7 +61,7 @@ export interface allReceivedRequests {
   allRequests: receivedRequest[];
 }
 export interface sentRequests {
-  sentRequests: receivedRequest[];
+  allRequests: receivedRequest[];
 }
 
 export const getReceivedRequests = async (): Promise<allReceivedRequests> => {
@@ -105,7 +105,7 @@ export const getSentRequests = async (): Promise<sentRequests> => {
   try {
     const response = await axiosInstance.get("/v1/api/requests/my-requests");
     return {
-      sentRequests: response.data,
+      allRequests: response.data,
     };
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Error fetching requests");

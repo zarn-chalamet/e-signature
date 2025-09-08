@@ -2,15 +2,15 @@ import type { userInfo } from "@/apiEndpoints/Auth";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: userInfo = {
-    userId: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    role: "",
-    image: "",
-    recentTemplates: [],
-    createdAt: "",
-}
+  userId: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  role: "",
+  image: "",
+  recentTemplates: [],
+  createdAt: "",
+};
 
 const UserSlice = createSlice({
   name: "user",
@@ -26,8 +26,11 @@ const UserSlice = createSlice({
       state.recentTemplates = action.payload.recentTemplates;
       state.createdAt = action.payload.createdAt;
     },
+    setLogOutUser: () => {
+      return initialState;
+    },
   },
 });
 
-export const { setUser } = UserSlice.actions;
+export const { setUser, setLogOutUser } = UserSlice.actions;
 export default UserSlice.reducer;

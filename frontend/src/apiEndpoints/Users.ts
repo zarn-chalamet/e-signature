@@ -19,6 +19,7 @@ export interface allUsers {
 }
 
 interface userData {
+  role: string;
   firstName: string;
   lastName: string;
   email: string;

@@ -64,7 +64,7 @@ const Home = () => {
         templateLoading={templatesLoading}
         allRequests={requestsData?.allRequests}
         requestLoading={requestLoading}
-        sentRequests={sentRequestsData?.sentRequests}
+        sentRequests={sentRequestsData?.allRequests}
         sentRequestLoading={sentRequestLoading}
       />
     );
@@ -77,7 +77,7 @@ const Home = () => {
         templateLoading={templatesLoading}
         allRequests={requestsData?.allRequests}
         requestLoading={requestLoading}
-        sentRequests={sentRequestsData?.sentRequests}
+        sentRequests={sentRequestsData?.allRequests}
         sentRequestLoading={sentRequestLoading}
       />
     </>
